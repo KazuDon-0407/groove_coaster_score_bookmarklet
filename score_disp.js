@@ -10,4 +10,5 @@ var res = [];
     if(arr[i] == '') break;
     res[i] = arr[i].split(',');
 }
+
 console.log(res);
