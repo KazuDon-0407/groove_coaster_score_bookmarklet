@@ -11,4 +11,5 @@ var res = [];
     res[i] = arr[i].split(',');
 }
 
-console.log(res);
+var output=document.getElementsByClassName("output");
+output.innerHTML=res[0][0];
