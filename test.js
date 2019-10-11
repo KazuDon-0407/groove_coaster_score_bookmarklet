@@ -69,7 +69,7 @@ function get_csv(){
 }
 
 function data_search(csv,score){
-    disp+='<button onclick="copyToClipboard()">Copy text</button>':
+    disp+='<button onclick="copyToClipboard()">Copy text</button>';
     disp+='<div id="CopyTarget">';
     var current_genre=-1;
     for(var i=0;i<csv.length;i++){
