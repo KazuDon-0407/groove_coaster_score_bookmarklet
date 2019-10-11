@@ -1,5 +1,17 @@
-function get(){
-    console.log(data_array[1][0]);
+function get_data(){
+    var xmlHttp=new XMLHttpRequest();
+    var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
+    /*id set*/
+    xmlHttp.open("GET",csv_url,false);
+    xmlHttp.send();
+    var arr = xmlHttp.responseText.split('\n');
+
+    var res = [];
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i] == '') break;
+        res[i] = arr[i].split(',');
+    }
+    return res;
 }
 
 var xmlHttp=new XMLHttpRequest();
@@ -35,6 +47,8 @@ var xmlHttp=new XMLHttpRequest();
                 }
                 if(index==id.length-1){
                     console.log(data_array[index]);
+                    var csv_array=get_data();
+                    console.log(csv_array);
                     var nwin=window.open();
                     nwin.document.open();
                     nwin.document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>');
