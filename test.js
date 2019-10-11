@@ -35,8 +35,10 @@ var xmlHttp=new XMLHttpRequest();
                 }
                 if(index==id.length-1){
                     console.log(data_array[index]);
-                    //var new=window.open();
-                    window.open().document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>')
+                    var nwin=window.open();
+                    nwin.document.open();
+                    nwin.document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>');
+                    nwin.document.close();
                 }
             }
         };
