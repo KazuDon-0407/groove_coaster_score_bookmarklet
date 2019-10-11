@@ -119,9 +119,11 @@ function data_search(csv,score){
                 
                 if(s_score+n_score+h_score+e_score==4000000) god_count[1]++;
             }
-            disp+='</p>';
+            disp+='<br>';
         }
+       
     }
+    disp+='</p>';
     disp+='</div>';
     disp+='<script>';
     disp+='function copyToClipboard(){';
