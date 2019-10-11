@@ -1,4 +1,6 @@
-function get_data(){
+
+
+function get_csv(){
     var xmlHttp=new XMLHttpRequest();
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
     /*id set*/
@@ -43,16 +45,17 @@ var xmlHttp=new XMLHttpRequest();
                 var data=JSON.parse(xhr[index].responseText);
                 const path=[data.music_detail.simple_result_data,data.music_detail.normal_result_data,data.music_detail.hard_result_data,data.music_detail.extra_result_data];
                 data_array[index][0]=data.music_detail.music_title;
+                data_array[index][1]=music_id;
                 var score_data;
                 var diff_lng=4;
                 if(!data.music_detail.ex_flag) diff_lng--;
                 for(var i=0;i<diff_lng;i++){
                     (path[i]==null) ? score_data="%E6%9C%AA%E3%83%97%E3%83%AC%E3%82%A4" : score_data=path[i].score;
-                    data_array[index][i+1]=score_data;
+                    data_array[index][i+2]=score_data;
                 }
                 if(index==id.length-1){
-                    console.log(data_array[index]);
-                    var csv_array=get_data();
+                    console.log(data_array);
+                    var csv_array=get_csv();
                     console.log(csv_array);
                     data_sort(csv_array,data_array);
                     disp+='</body></html>'
