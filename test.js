@@ -106,8 +106,13 @@ function data_search(csv,score){
 }
 
 function score_detail(){
-    disp+='<h1>スコア別詳細</h1>';
+    disp+='<h1>スコア詳細</h1>';
     disp+='<h2>ジャンル別詳細</h2>';
+    for(var i=0;i<genre_str.length;i++){
+        disp+='<h3>'+genre_str[i]+'</h3>';
+        disp+='<p>トータルスコア:'+genre_total_score[i]+'</p>';
+        disp+='<p>平均スコア:'+Math.floor(genre_total_score[i]/genre_num[i])+'</p>';
+    }
 }
 
 var xmlHttp=new XMLHttpRequest();
