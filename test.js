@@ -80,24 +80,36 @@ function data_search(csv,score){
             
             genre_total_score[current_genre]+=s_score;
             simple_total_score[s_diff-1]+=s_score;
-            if(s_score>0) simple_num[s_diff-1]++;
+            if(s_score>0) {
+                simple_num[s_diff-1]++;
+                genre_num[current_genre]++;
+            }
             disp+=s_score+",";
             
             genre_total_score[current_genre]+=n_score;
             normal_total_score[n_diff-1]+=n_score;
-            if(n_score>0) normal_num[n_diff-1]++;
+            if(n_score>0) {
+                normal_num[n_diff-1]++;
+                genre_num[current_genre]++;
+            }
             disp+=n_score+",";
             
             genre_total_score[current_genre]+=h_score;
             hard_total_score[h_diff-1]+=h_score;
-            if(h_score>0) hard_num[h_diff-1]++;
+            if(h_score>0) {
+                hard_num[h_diff-1]++;
+                genre_num[current_genre]++;
+            }
             disp+=h_score;
             
             if(csv[i][extra_diff]>=1){
                 var e_score=score[current_id][extra_score];
                 genre_total_score[current_genre]+=e_score;
                 extra_total_score[e_diff-1]+=e_score;
-                if(e_score>0) extra_num[e_diff-1]++;
+                if(e_score>0) {
+                    extra_num[e_diff-1]++;
+                    genre_num[current_genre]++;
+                }
                 disp+=","+e_score;
             }
             disp+='</p>';
