@@ -62,7 +62,7 @@ function get_csv(){
 }
 
 function data_search(csv,score){
-    disp+='<button onclick="copyToClipboard()">Copy text</button>';
+    disp+='<button onclick="copyToClipboard()">Copy Score</button>';
     disp+='<div id="CopyTarget">';
     var current_genre=-1;
     for(var i=0;i<csv.length;i++){
@@ -126,10 +126,15 @@ function data_search(csv,score){
     disp+='<script>';
     disp+='function copyToClipboard(){';
     disp+='var copyTarget = document.getElementById("CopyTarget");';
-    disp+='copyTarget.select();';
-    disp+='document.execCommand("Copy");';
-    disp+='alert("コピーできました！");}';
-    disp+='</script>';
+    disp+='var text = document.createElement("textarea");';
+    disp+='text.value = copyTarget.innerText;';
+    disp+='document.body.appendChild(text);';
+    disp+='text.select();';
+    disp+='document.execCommand("copy");';
+    disp+='alert('クリップボードにコピーしました。');';
+    disp+='text.parentElement.removeChild(text);}';
+    disp+='</script>'; 
+    
 }
 
 
