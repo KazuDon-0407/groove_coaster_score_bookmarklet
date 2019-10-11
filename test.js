@@ -36,7 +36,7 @@ var xmlHttp=new XMLHttpRequest();
                 if(index==id.length-1){
                     console.log(data_array[index]);
                     //var new=window.open();
-                    //new.document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>')
+                    window.open().document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>')
                 }
             }
         };
