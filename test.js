@@ -138,7 +138,7 @@ function score_detail(){
     for(var i=0;i<diff_rank.length;i++){
         if(simple_num[i]>0){
             disp+='<tr align="center">';
-            disp+='<td>'simple+(i+1)+'</td>';
+            disp+='<td>simple'+(i+1)+'</td>';
             disp+='<td>'+simple_total_score[i]+'</td>';
             disp+='<td>'+Math.floor(simple_total_score[i]/simple_num[i])+'</td>';
             disp+='</tr>';
@@ -152,7 +152,7 @@ function score_detail(){
     for(var i=0;i<diff_rank.length;i++){
         if(normal_num[i]>0){
             disp+='<tr align="center">';
-            disp+='<td>'normal+(i+1)+'</td>';
+            disp+='<td>normal'+(i+1)+'</td>';
             disp+='<td>'+normal_total_score[i]+'</td>';
             disp+='<td>'+Math.floor(normal_total_score[i]/normal_num[i])+'</td>';
             disp+='</tr>';
@@ -166,7 +166,7 @@ function score_detail(){
     for(var i=0;i<diff_rank.length;i++){
         if(hard_num[i]>0){
             disp+='<tr align="center">';
-            disp+='<td>'hard+(i+1)+'</td>';
+            disp+='<td>hard'+(i+1)+'</td>';
             disp+='<td>'+hard_total_score[i]+'</td>';
             disp+='<td>'+Math.floor(hard_total_score[i]/hard_num[i])+'</td>';
             disp+='</tr>';
@@ -180,7 +180,7 @@ function score_detail(){
     for(var i=0;i<diff_rank.length;i++){
         if(extra_num[i]>0){
             disp+='<tr align="center">';
-            disp+='<td>'extra+(i+1)+'</td>';
+            disp+='<td>extra'+(i+1)+'</td>';
             disp+='<td>'+extra_total_score[i]+'</td>';
             disp+='<td>'+Math.floor(extra_total_score[i]/extra_num[i])+'</td>';
             disp+='</tr>';
