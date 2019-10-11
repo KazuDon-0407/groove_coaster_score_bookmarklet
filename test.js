@@ -135,8 +135,7 @@ function score_detail(){
     disp+='<h3>simple</h3>';
     disp+='<table style="padding:15px">';
     disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank.length;i++){
-        console.log(simple.num[i]);
+    for(var i=0;i<diff_rank;i++){
         if(simple_num[i]>0){
             disp+='<tr align="center">';
             disp+='<td>simple'+(i+1)+'</td>';
@@ -150,7 +149,7 @@ function score_detail(){
     disp+='<h3>normal</h3>';
     disp+='<table style="padding:15px">';
     disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank.length;i++){
+    for(var i=0;i<diff_rank;i++){
         if(normal_num[i]>0){
             disp+='<tr align="center">';
             disp+='<td>normal'+(i+1)+'</td>';
@@ -164,7 +163,7 @@ function score_detail(){
     disp+='<h3>hard</h3>';
     disp+='<table style="padding:15px">';
     disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank.length;i++){
+    for(var i=0;i<diff_rank;i++){
         if(hard_num[i]>0){
             disp+='<tr align="center">';
             disp+='<td>hard'+(i+1)+'</td>';
@@ -178,7 +177,7 @@ function score_detail(){
     disp+='<h3>extra</h3>';
     disp+='<table style="padding:15px">';
     disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank.length;i++){
+    for(var i=0;i<diff_rank;i++){
         if(extra_num[i]>0){
             disp+='<tr align="center">';
             disp+='<td>extra'+(i+1)+'</td>';
