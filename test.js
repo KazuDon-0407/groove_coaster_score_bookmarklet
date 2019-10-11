@@ -14,6 +14,10 @@ function get_data(){
     return res;
 }
 
+function data_sort(csv,score){
+    console.log("pass");
+}
+
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
@@ -29,6 +33,7 @@ var xmlHttp=new XMLHttpRequest();
     );
     var data_array=[];
     var xhr=[];
+    var disp='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
         data_array[index]=new Array();
         xhr[index]=new XMLHttpRequest();
@@ -49,9 +54,11 @@ var xmlHttp=new XMLHttpRequest();
                     console.log(data_array[index]);
                     var csv_array=get_data();
                     console.log(csv_array);
+                    data_sort(csv_array,data_array);
+                    disp+='</body></html>'
                     var nwin=window.open();
                     nwin.document.open();
-                    nwin.document.write('<html><head><title>新規タブ</title></head><body><button onclick="get()">sort</button></body></html>');
+                    nwin.document.write(disp);
                     nwin.document.close();
                 }
             }
