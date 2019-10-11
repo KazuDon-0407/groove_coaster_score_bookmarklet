@@ -42,7 +42,7 @@ function data_search(csv,score){
             disp+=score[current_id][simple_score]+",";
             disp+=score[current_id][normal_score]+",";
             disp+=score[current_id][hard_score];
-            if(!csv[i][extra_diff]) disp+=","+score[current_id][extra_score];
+            if(csv[i][extra_diff]>=1) disp+=","+score[current_id][extra_score];
             disp+='</p>';
         }
     }
