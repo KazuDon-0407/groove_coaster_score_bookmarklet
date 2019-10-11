@@ -65,6 +65,7 @@ function data_search(csv,score){
     disp+='<button onclick="copyToClipboard()">Copy Score</button>';
     disp+='<div id="CopyTarget">';
     var current_genre=-1;
+    disp+='<p>';
     for(var i=0;i<csv.length;i++){
         if(current_genre!=csv[i][genre]){
             current_genre=csv[i][genre];
@@ -79,7 +80,7 @@ function data_search(csv,score){
             var s_score=score[current_id][simple_score];
             var n_score=score[current_id][normal_score];
             var h_score=score[current_id][hard_score];
-            disp+='<p>'+csv[i][title]+",";
+            disp+=csv[i][title]+",";
             
             genre_total_score[current_genre]+=s_score;
             simple_total_score[s_diff-1]+=s_score;
