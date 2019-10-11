@@ -121,9 +121,9 @@ function score_detail(){
     disp+='<h1>スコア詳細</h1>';
     disp+='<h2>ジャンル別詳細</h2>';
     disp+='<table>';
-    disp+='<tr align="center"; padding:10px><th>ジャンル</th><th>トータルスコア</th><th>平均スコア</th></tr>';
+    disp+='<tr align="center"; padding:15px><th>ジャンル</th><th>トータルスコア</th><th>平均スコア</th></tr>';
     for(var i=0;i<genre_str.length;i++){
-        disp+='<tr align="center"; padding:10px>';
+        disp+='<tr align="center"; padding:15px>';
         disp+='<td>'+genre_str[i]+'</td>';
         disp+='<td>'+genre_total_score[i]+'</td>';
         disp+='<td>'+Math.floor(genre_total_score[i]/genre_num[i])+'</td>';
