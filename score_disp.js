@@ -1,5 +1,5 @@
 var xmlHttp=new XMLHttpRequest();
-var url="https://cdn.jsdelivr.net/gh/KazuDon-0407/groove_coaster_score_bookmarklet/genre_sort_database.csv";
+var url="https://cdn.jsdelivr.net/gh/KazuDon-0407/groove_coaster_score_bookmarklet@latest/genre_sort_database.csv";
 /*id set*/
 xmlHttp.open("GET",url,false);
 xmlHttp.send();
