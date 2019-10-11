@@ -60,9 +60,10 @@ var xmlHttp=new XMLHttpRequest();
                     data_sort(csv_array,data_array);
                     disp+='</body></html>'
                     var nwin=window.open();
-                    nwin.document.open();
+                    //nwin.document.open();
                     nwin.document.write(disp);
-                    nwin.document.close();
+                    //nwin.document.close();
+                    console.log("err");
                 }
             }
         };
