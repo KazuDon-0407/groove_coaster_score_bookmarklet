@@ -131,7 +131,7 @@ function data_search(csv,score){
     disp+='document.body.appendChild(text);';
     disp+='text.select();';
     disp+='document.execCommand("copy");';
-    disp+='alert('クリップボードにコピーしました。');';
+    disp+='alert("クリップボードにコピーしました。");';
     disp+='text.parentElement.removeChild(text);}';
     disp+='</script>'; 
     
