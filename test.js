@@ -1,4 +1,17 @@
+const title=0;
+const csv_id=1;
+const genre=2;
+const simple_diff=3;
+const normal_diff=4;
+const hard_diff=5;
+const extra_diff=6;
 
+const simple_score=1;
+const normal_score=2;
+const hard_score=3;
+const extra_score=4;
+
+var genre_str=["アニメ・ポップス","ボーカロイド","東方アレンジ","音楽ゲーム","ゲーム","バラエティ","オリジナル"];
 
 function get_csv(){
     var xmlHttp=new XMLHttpRequest();
@@ -16,8 +29,20 @@ function get_csv(){
     return res;
 }
 
-function data_binary_search(csv,score){
-    console.log("pass");
+function data_search(csv,score){
+    var current_genre=-1;
+    var current_id=2;
+    console.log(score[current_id]);
+    /*
+    for(var i=0;i<csv.length;i++){
+        if(current_genre!=csv[i][genre]){
+            current_genre=csv[i][genre];
+            disp+='<h2>'+genre_str[current_genre]+'</h2>';
+        }
+        var current_id=csv[i][csv_id];
+        if()
+    }
+    */
 }
 
 var xmlHttp=new XMLHttpRequest();
@@ -57,7 +82,7 @@ var xmlHttp=new XMLHttpRequest();
                     console.log(data_array);
                     var csv_array=get_csv();
                     console.log(csv_array);
-                    data_binary_search(csv_array,data_array);
+                    data_search(csv_array,data_array);
                     disp+='</body></html>'
                     var nwin=window.open();
                     nwin.document.open();
