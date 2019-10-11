@@ -1,3 +1,7 @@
+function get(){
+    console.log(data_array[1][0]);
+}
+
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
@@ -31,6 +35,7 @@ var xmlHttp=new XMLHttpRequest();
                 }
                 if(index==id.length-1){
                     console.log(data_array[index]);
+                    var new=window.open();
                 }
             }
         };
