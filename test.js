@@ -31,7 +31,7 @@ function get_csv(){
 
 function data_search(csv,score){
     var current_genre=-1;
-    var current_id=1;
+    var current_id=2;
     if(score[current_id]!=undefined){
         console.log("Hello");
     }
