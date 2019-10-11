@@ -32,7 +32,9 @@ function get_csv(){
 function data_search(csv,score){
     var current_genre=-1;
     var current_id=1;
-    console.log(score[current_id]);
+    if(score[current_id]!=undefined){
+        console.log("Hello");
+    }
     /*
     for(var i=0;i<csv.length;i++){
         if(current_genre!=csv[i][genre]){
