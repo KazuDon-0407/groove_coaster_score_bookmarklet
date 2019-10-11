@@ -45,13 +45,6 @@ for(var i=0;i<diff_rank;i++){
     extra_num[i]=0;
 }
 
-function copyToClipboard(){
-    var copyTarget = document.getElementById("CopyTarget");
-    copyTarget.select();
-    document.execCommand("Copy");
-    alert("コピーできました！");
-}
-
 function get_csv(){
     var xmlHttp=new XMLHttpRequest();
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
@@ -130,7 +123,16 @@ function data_search(csv,score){
         }
     }
     disp+='</div>';
+    disp+='<script>
+    function copyToClipboard(){
+        var copyTarget = document.getElementById("CopyTarget");
+        copyTarget.select();
+        document.execCommand("Copy");
+        alert("コピーできました！");
+    }
+    </script>'
 }
+
 
 function score_detail(){
     disp+='<h1>スコア詳細</h1>';
