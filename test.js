@@ -123,14 +123,13 @@ function data_search(csv,score){
         }
     }
     disp+='</div>';
-    disp+='<script>
-    function copyToClipboard(){
-        var copyTarget = document.getElementById("CopyTarget");
-        copyTarget.select();
-        document.execCommand("Copy");
-        alert("コピーできました！");
-    }
-    </script>'
+    disp+='<script>';
+    disp+='function copyToClipboard(){';
+    disp+='var copyTarget = document.getElementById("CopyTarget");';
+    disp+='copyTarget.select();';
+    disp+='document.execCommand("Copy");';
+    disp+='alert("コピーできました！");}';
+    disp+='</script>';
 }
 
 
