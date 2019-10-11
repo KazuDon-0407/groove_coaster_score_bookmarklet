@@ -37,6 +37,7 @@ var xmlHttp=new XMLHttpRequest();
     var xhr=[];
     var disp='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
+        /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
         xhr[music_id]=new XMLHttpRequest();
         xhr[music_id].open("GET","https://mypage.groovecoaster.jp/sp/json/music_detail.php?music_id="+music_id,true);
@@ -66,5 +67,5 @@ var xmlHttp=new XMLHttpRequest();
                 }
             }
         };
-        xhr[index].send();
+        xhr[music_id].send();
     });
