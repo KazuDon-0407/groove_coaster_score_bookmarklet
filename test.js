@@ -11,7 +11,35 @@ const normal_score=2;
 const hard_score=3;
 const extra_score=4;
 
+const diff_rank=15;
+
 var genre_str=["アニメ・ポップス","ボーカロイド","東方アレンジ","音楽ゲーム","ゲーム","バラエティ","オリジナル"];
+
+var genre_total_score=new Array(genre_str.length);
+var genre_num=new Array(genre_str.length);
+var simple_total_score=new Array(diff_rank);
+var simple_num=new Array(diff_rank);
+var normal_total_score=new Array(diff_rank);
+var normal_num=new Array(diff_rank);
+var hard_total_score=new Array(diff_rank);
+var hard_num=new Array(diff_rank);
+var extra_total_score=new Array(diff_rank);
+var extra_num=new Array(diff_rank);
+
+for(var i=0;i<genre_str.length;i++){
+    genre_total_score[i]=0;
+    genre_num[i]=0;
+}
+for(var i=0;i<diff_rank;i++){
+    simple_total_score[i]=0;
+    simple_num[i]=0;
+    normal_total_score[i]=0;
+    normal_num[i]=0;
+    hard_total_score[i]=0;
+    hard_num[i]=0;
+    extra_total_score[i]=0;
+    extra_num[i]=0;
+}
 
 function get_csv(){
     var xmlHttp=new XMLHttpRequest();
