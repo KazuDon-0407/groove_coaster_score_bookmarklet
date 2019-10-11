@@ -136,6 +136,7 @@ function score_detail(){
     disp+='<table style="padding:15px">';
     disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
     for(var i=0;i<diff_rank.length;i++){
+        console.log(simple.num[i]);
         if(simple_num[i]>0){
             disp+='<tr align="center">';
             disp+='<td>simple'+(i+1)+'</td>';
