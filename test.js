@@ -16,7 +16,7 @@ function get_csv(){
     return res;
 }
 
-function data_sort(csv,score){
+function data_binary_search(csv,score){
     console.log("pass");
 }
 
@@ -37,32 +37,31 @@ var xmlHttp=new XMLHttpRequest();
     var xhr=[];
     var disp='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
-        data_array[index]=new Array();
-        xhr[index]=new XMLHttpRequest();
-        xhr[index].open("GET","https://mypage.groovecoaster.jp/sp/json/music_detail.php?music_id="+music_id,true);
-        xhr[index].onreadystatechange = function(){
-            if (xhr[index].readyState === 4 && xhr[index].status === 200){
-                var data=JSON.parse(xhr[index].responseText);
+        data_array[music_id]=new Array();
+        xhr[music_id]=new XMLHttpRequest();
+        xhr[music_id].open("GET","https://mypage.groovecoaster.jp/sp/json/music_detail.php?music_id="+music_id,true);
+        xhr[music_id].onreadystatechange = function(){
+            if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
+                var data=JSON.parse(xhr[music_id].responseText);
                 const path=[data.music_detail.simple_result_data,data.music_detail.normal_result_data,data.music_detail.hard_result_data,data.music_detail.extra_result_data];
-                data_array[index][0]=data.music_detail.music_title;
-                data_array[index][1]=music_id;
+                data_array[music_id][0]=data.music_detail.music_title;
                 var score_data;
                 var diff_lng=4;
                 if(!data.music_detail.ex_flag) diff_lng--;
                 for(var i=0;i<diff_lng;i++){
                     (path[i]==null) ? score_data="%E6%9C%AA%E3%83%97%E3%83%AC%E3%82%A4" : score_data=path[i].score;
-                    data_array[index][i+2]=score_data;
+                    data_array[music_id][i+1]=score_data;
                 }
                 if(index==id.length-1){
                     console.log(data_array);
                     var csv_array=get_csv();
                     console.log(csv_array);
-                    data_sort(csv_array,data_array);
+                    data_binary_search(csv_array,data_array);
                     disp+='</body></html>'
                     var nwin=window.open();
-                    //nwin.document.open();
+                    nwin.document.open();
                     nwin.document.write(disp);
-                    //nwin.document.close();
+                    nwin.document.close();
                     console.log("err");
                 }
             }
