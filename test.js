@@ -13,6 +13,7 @@ const extra_score=4;
 
 const diff_rank=15;
 
+var diff_str=["simple","normal","hard","extra"];
 var genre_str=["アニメ・ポップス","ボーカロイド","東方アレンジ","音楽ゲーム","ゲーム","バラエティ","オリジナル"];
 
 var genre_total_score=new Array(genre_str.length);
@@ -26,10 +27,12 @@ var hard_num=new Array(diff_rank);
 var extra_total_score=new Array(diff_rank);
 var extra_num=new Array(diff_rank);
 
+/*配列の初期化*/
 for(var i=0;i<genre_str.length;i++){
     genre_total_score[i]=0;
     genre_num[i]=0;
 }
+
 for(var i=0;i<diff_rank;i++){
     simple_total_score[i]=0;
     simple_num[i]=0;
@@ -66,14 +69,45 @@ function data_search(csv,score){
         }
         var current_id=csv[i][csv_id];
         if(score[current_id]!=undefined){
+            var s_diff=csv[i][simple_diff];
+            var n_diff=csv[i][normal_diff];
+            var h_diff=csv[i][hard_diff];
+            var e_diff=csv[i][extra_diff];
+            var s_score=score[current_id][simple_score];
+            var n_score=score[current_id][normal_score];
+            var h_score=score[current_id][hard_score];
             disp+='<p>'+csv[i][title]+",";
-            disp+=score[current_id][simple_score]+",";
-            disp+=score[current_id][normal_score]+",";
-            disp+=score[current_id][hard_score];
-            if(csv[i][extra_diff]>=1) disp+=","+score[current_id][extra_score];
+            
+            genre_total_score[current_genre]+=s_score;
+            simple_total_score[s_diff-1]+=s_score;
+            if(s_score>0) simple_num[s_diff-1]++;
+            disp+=s_score+",";
+            
+            genre_total_score[current_genre]+=n_score;
+            normal_total_score[n_diff-1]+=n_score;
+            if(n_score>0) normal_num[n_diff-1]++;
+            disp+=n_score+",";
+            
+            genre_total_score[current_genre]+=h_score;
+            hard_total_score[h_diff-1]+=h_score;
+            if(h_score>0) hard_num[h_diff-1]++;
+            disp+=h_score;
+            
+            if(csv[i][extra_diff]>=1){
+                var e_score=score[current_id][extra_score];
+                genre_total_score[current_genre]+=e_score;
+                extra_total_score[e_diff-1]+=e_score;
+                if(e_score>0) extra_num[e_diff-1]++;
+                disp+=","+e_score;
+            }
             disp+='</p>';
         }
     }
+}
+
+function score_detail(){
+    disp+='<h1>スコア別詳細</h1>';
+    disp+='<h2>ジャンル別詳細</h2>';
 }
 
 var xmlHttp=new XMLHttpRequest();
@@ -106,7 +140,7 @@ var xmlHttp=new XMLHttpRequest();
                 var diff_lng=4;
                 if(!data.music_detail.ex_flag) diff_lng--;
                 for(var i=0;i<diff_lng;i++){
-                    (path[i]==null) ? score_data="%E6%9C%AA%E3%83%97%E3%83%AC%E3%82%A4" : score_data=path[i].score;
+                    (path[i]==null) ? score_data=0 : score_data=path[i].score;
                     data_array[music_id][i+1]=score_data;
                 }
                 if(index==id.length-1){
@@ -114,6 +148,7 @@ var xmlHttp=new XMLHttpRequest();
                     var csv_array=get_csv();
                     console.log(csv_array);
                     data_search(csv_array,data_array);
+                    score_detail();
                     disp+='</body></html>'
                     var nwin=window.open();
                     nwin.document.open();
