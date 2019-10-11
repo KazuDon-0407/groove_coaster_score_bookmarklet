@@ -15,6 +15,7 @@ const diff_rank=15;
 
 var diff_str=["simple","normal","hard","extra"];
 var genre_str=["アニメ・ポップス","ボーカロイド","東方アレンジ","音楽ゲーム","ゲーム","バラエティ","オリジナル"];
+var god_count=[0,0];
 
 var genre_total_score=new Array(genre_str.length);
 var genre_num=new Array(genre_str.length);
@@ -102,6 +103,8 @@ function data_search(csv,score){
             }
             disp+=h_score;
             
+            if(s_score+n_score+h_score==3000000) god_count[0]++;
+            
             if(csv[i][extra_diff]>=1){
                 var e_score=score[current_id][extra_score];
                 genre_total_score[current_genre]+=e_score;
@@ -111,6 +114,8 @@ function data_search(csv,score){
                     genre_num[current_genre]++;
                 }
                 disp+=","+e_score;
+                
+                if(s_score+n_score+h_score+e_score==4000000) god_count[1]++;
             }
             disp+='</p>';
         }
@@ -187,6 +192,10 @@ function score_detail(){
         }
     }
     disp+='</table>';
+    
+    disp+='<h2>300万、400万数</h2>';
+    disp+='<p>300万:'+god_count[0]+'曲</p>';
+    disp+='<p>400万:'+god_count[1]+'曲</p>';
 }
 
 var xmlHttp=new XMLHttpRequest();
