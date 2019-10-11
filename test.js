@@ -31,20 +31,21 @@ function get_csv(){
 
 function data_search(csv,score){
     var current_genre=-1;
-    var current_id=2;
-    if(score[current_id]!=undefined){
-        console.log("Hello");
-    }
-    /*
     for(var i=0;i<csv.length;i++){
         if(current_genre!=csv[i][genre]){
             current_genre=csv[i][genre];
             disp+='<h2>'+genre_str[current_genre]+'</h2>';
         }
         var current_id=csv[i][csv_id];
-        if()
+        if(score[current_id]!=undefined){
+            disp+='<p>'+csv[i][title]+",";
+            disp+=score[current_id][simple_score]+",";
+            disp+=score[current_id][normal_score]+",";
+            disp+=score[current_id][hard_score];
+            if(!csv[i][extra_diff]) disp+=","+score[current_id][extra_score];
+            disp+='</p>';
+        }
     }
-    */
 }
 
 var xmlHttp=new XMLHttpRequest();
