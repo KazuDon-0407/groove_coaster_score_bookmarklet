@@ -13,3 +13,4 @@ var res = [];
 
 var output=document.getElementsByClassName("output");
 output.innerHTML=res[0][0];
+console.log(res[0][0]);
