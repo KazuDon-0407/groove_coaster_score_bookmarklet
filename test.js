@@ -222,6 +222,7 @@ var xmlHttp=new XMLHttpRequest();
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
     xmlHttp.send(null);
     const endTime = performance.now();
+    xmlHttp.timeout=20;
     console.log(endTime-startTime+"ms");
 
     var data_s=JSON.parse(xmlHttp.responseText);
