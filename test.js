@@ -51,6 +51,7 @@ function get_id(){
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",true);
+    xmlHttp.timeout=10;
     xmlHttp.onreadystatechange = function(){
         console.log("readyState:"+xmlHttp.readyState);
         console.log("status:"+xmlHttp.status);
