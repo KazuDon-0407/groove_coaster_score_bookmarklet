@@ -295,7 +295,7 @@ function score_detail(){
 
 function score_disp(){
     disp+='</body></html>'
-    var nwin=window.open();
+    var nwin=window.open('','_blank');
     nwin.document.open();
     nwin.document.write(disp);
     nwin.document.close();
