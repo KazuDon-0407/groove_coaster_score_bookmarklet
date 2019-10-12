@@ -66,7 +66,9 @@ function get_id(){
             );
             get_score(play_id);
         }
-        
+        else if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
+            alert("error\nマイページにログインして実行してください");
+        }
     };
     xmlHttp.send(null);
 }
