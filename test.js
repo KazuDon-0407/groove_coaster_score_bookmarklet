@@ -64,7 +64,7 @@ function get_id(){
             );
             get_score(play_id);
         }
-        else alert("error");
+        else alert("通信エラー\nマイページにログインして実行してください");
     };
     xmlHttp.send(null);
 }
