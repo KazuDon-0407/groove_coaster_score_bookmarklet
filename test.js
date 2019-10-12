@@ -219,11 +219,11 @@ function score_detail(){
 
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
+    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
+    xmlHttp.send(null);
     xmlHttp.onerror = function() {
         alert("データの取得に失敗しました。\nマイページにログインしてください");
     };
-    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
-    xmlHttp.send(null);
     var data_s=JSON.parse(xmlHttp.responseText);
     var id=data_s.music_list.map(function(e){
         return e.music_id;
