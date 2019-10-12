@@ -50,19 +50,22 @@ for(var i=0;i<diff_rank;i++){
 function get_id(){
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
-    xmlHttp.send(null);
-
-    var data_s=JSON.parse(xmlHttp.responseText);
-    var play_id=data_s.music_list.map(function(e){
-        return e.music_id;
-    });
-    play_id.sort(
-        function(a,b) {
-          return a - b;
+    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",true);
+    xmlHttp.onreadystatechange = function(){
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
+            var data_s=JSON.parse(xmlHttp.responseText);
+            var play_id=data_s.music_list.map(function(e){
+                return e.music_id;
+            });
+            play_id.sort(
+                function(a,b) {
+                    return a - b;
+                }
+            );
+            get_score(play_id);
         }
-    );
-    get_score(play_id);
+    };
+    xmlHttp.send(null);
 }
 
 function get_score(id){
