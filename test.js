@@ -99,16 +99,6 @@ function get_score(id){
                 if(index==id.length-1){
                     console.log(data_array);
                     get_csv(data_array);
-                    //var csv_array=get_csv();
-                    //console.log(csv_array);
-                    //data_search(csv_array,data_array);
-                    //score_detail();
-                    //disp+='</body></html>'
-                    //var nwin=window.open();
-                    //nwin.document.open();
-                    //nwin.document.write(disp);
-                    //nwin.document.close();
-                    //console.log("err");
                 }
             }
         };
@@ -305,11 +295,12 @@ function score_detail(){
 
 function score_disp(){
     disp+='</body></html>'
-    var nwin=window.open();
-    //nwin.document.open();
+    //var nwin=window.open();
+    nwin.document.open();
     nwin.document.write(disp);
-    //nwin.document.close();
+    nwin.document.close();
     console.log("err");
 }
 
+var nwin=window.open();
 get_id();
