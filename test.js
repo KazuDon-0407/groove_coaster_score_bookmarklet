@@ -220,9 +220,9 @@ var xmlHttp=new XMLHttpRequest();
     /*id set*/
     const startTime = performance.now();
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
+    xmlHttp.timeout=20;
     xmlHttp.send(null);
     const endTime = performance.now();
-    xmlHttp.timeout=20;
     console.log(endTime-startTime+"ms");
 
     var data_s=JSON.parse(xmlHttp.responseText);
