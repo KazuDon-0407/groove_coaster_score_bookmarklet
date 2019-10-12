@@ -258,9 +258,9 @@ var xmlHttp=new XMLHttpRequest();
                     score_detail();
                     disp+='</body></html>'
                     var nwin=window.open();
-                    nwin.document.open();
+                    //nwin.document.open();
                     nwin.document.write(disp);
-                    nwin.document.close();
+                    //nwin.document.close();
                     console.log("err");
                 }
             }
