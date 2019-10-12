@@ -46,12 +46,13 @@ for(var i=0;i<diff_rank;i++){
     extra_num[i]=0;
 }
 
+const timeout=10000;
 
 function get_id(){
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",true);
-    xmlHttp.timeout=3000;
+    xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         console.log("readyState:"+xmlHttp.readyState);
         console.log("status:"+xmlHttp.status);
@@ -110,7 +111,7 @@ function get_score(id){
                 }
             }
         };
-        xhr[music_id].send();
+        xhr[music_id].send(null);
     });
 }
 
@@ -119,15 +120,25 @@ function get_csv(){
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
     /*id set*/
     xmlHttp.open("GET",csv_url,false);
-    xmlHttp.send();
-    var arr = xmlHttp.responseText.split('\n');
+    xmlHttp.timeout=timeout;
+    xmlHttp.onreadystatechange = function(){
+        console.log("readyState:"+xmlHttp.readyState);
+        console.log("status:"+xmlHttp.status);
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
+            var arr = xmlHttp.responseText.split('\n');
 
-    var res = [];
-    for(var i = 0; i < arr.length; i++){
-        if(arr[i] == '') break;
-        res[i] = arr[i].split(',');
-    }
-    return res;
+            var res = [];
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i] == '') break;
+                res[i] = arr[i].split(',');
+            }
+            return res;
+        }
+        else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
+            alert("CSVデータの取得に失敗しました");
+        }
+    };
+    xmlHttp.send(null);
 }
 
 function data_search(csv,score){
