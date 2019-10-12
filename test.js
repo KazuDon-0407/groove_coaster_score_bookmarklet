@@ -216,28 +216,11 @@ function score_detail(){
     disp+='<p>300万:'+god_count[0]+'曲</p>';
     disp+='<p>400万:'+god_count[1]+'曲</p>';
 }
-var id;
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
     xmlHttp.send(null);
-    xmlHttp.onreadystatechange = function(){
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
-            var data_s=JSON.parse(xmlHttp.responseText);
-            id=data_s.music_list.map(function(e){
-                return e.music_id;
-            });
-            id.sort(
-                function(a,b) {
-                    return a - b;
-                }
-            );
-        }
-        else{
-            alert("データの取得に失敗しました。\nマイページにログインしてください");
-        }
-    };
-    /*
+
     var data_s=JSON.parse(xmlHttp.responseText);
     var id=data_s.music_list.map(function(e){
         return e.music_id;
@@ -247,7 +230,7 @@ var xmlHttp=new XMLHttpRequest();
           return a - b;
         }
     );
-    */
+
     var data_array=[];
     var xhr=[];
     var disp='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
