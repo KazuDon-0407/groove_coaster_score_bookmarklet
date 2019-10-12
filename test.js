@@ -295,12 +295,11 @@ function score_detail(){
 
 function score_disp(){
     disp+='</body></html>'
-    //var nwin=window.open();
+    var nwin=window.open();
     nwin.document.open();
     nwin.document.write(disp);
     nwin.document.close();
     console.log("err");
 }
 
-var nwin=window.open();
 get_id();
