@@ -13,6 +13,7 @@ const extra_score=4;
 
 const diff_rank=15;
 
+var disp="";
 var diff_str=["simple","normal","hard","extra"];
 var genre_str=["アニメ・ポップス","ボーカロイド","東方アレンジ","音楽ゲーム","ゲーム","バラエティ","オリジナル"];
 var god_count=[0,0];
@@ -67,7 +68,7 @@ function get_id(){
 function get_score(id){
     var data_array=[];
     var xhr=[];
-    var disp='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
+    disp+='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
