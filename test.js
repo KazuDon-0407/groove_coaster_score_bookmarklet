@@ -52,6 +52,7 @@ function get_id(){
     /*id set*/
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",true);
     xmlHttp.onreadystatechange = function(){
+        console.log("error:"+xmlHttp.readyState);
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
             var data_s=JSON.parse(xmlHttp.responseText);
             var play_id=data_s.music_list.map(function(e){
@@ -64,7 +65,7 @@ function get_id(){
             );
             get_score(play_id);
         }
-        else alert("通信エラー\nマイページにログインして実行してください");
+        
     };
     xmlHttp.send(null);
 }
