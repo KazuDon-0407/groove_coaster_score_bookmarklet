@@ -45,6 +45,7 @@ for(var i=0;i<diff_rank;i++){
     extra_num[i]=0;
 }
 
+
 function get_csv(){
     var xmlHttp=new XMLHttpRequest();
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
@@ -218,12 +219,8 @@ function score_detail(){
 }
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    const startTime = performance.now();
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
-    xmlHttp.timeout=20;
     xmlHttp.send(null);
-    const endTime = performance.now();
-    console.log(endTime-startTime+"ms");
 
     var data_s=JSON.parse(xmlHttp.responseText);
     var id=data_s.music_list.map(function(e){
