@@ -119,7 +119,7 @@ function get_csv(){
     var xmlHttp=new XMLHttpRequest();
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
     /*id set*/
-    xmlHttp.open("GET",csv_url,false);
+    xmlHttp.open("GET",csv_url,true);
     xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         console.log("readyState:"+xmlHttp.readyState);
