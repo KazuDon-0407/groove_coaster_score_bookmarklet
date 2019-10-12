@@ -218,8 +218,11 @@ function score_detail(){
 }
 var xmlHttp=new XMLHttpRequest();
     /*id set*/
+    const startTime = performance.now();
     xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/music_list.php",false);
     xmlHttp.send(null);
+    const endTime = performance.now();
+    console.log(endTime-startTime+"ms");
 
     var data_s=JSON.parse(xmlHttp.responseText);
     var id=data_s.music_list.map(function(e){
