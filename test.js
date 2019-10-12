@@ -98,16 +98,17 @@ function get_score(id){
                 }
                 if(index==id.length-1){
                     console.log(data_array);
-                    var csv_array=get_csv();
-                    console.log(csv_array);
-                    data_search(csv_array,data_array);
-                    score_detail();
-                    disp+='</body></html>'
-                    var nwin=window.open();
+                    get_csv(data_array);
+                    //var csv_array=get_csv();
+                    //console.log(csv_array);
+                    //data_search(csv_array,data_array);
+                    //score_detail();
+                    //disp+='</body></html>'
+                    //var nwin=window.open();
                     //nwin.document.open();
-                    nwin.document.write(disp);
+                    //nwin.document.write(disp);
                     //nwin.document.close();
-                    console.log("err");
+                    //console.log("err");
                 }
             }
         };
@@ -115,7 +116,7 @@ function get_score(id){
     });
 }
 
-function get_csv(){
+function get_csv(data){
     var xmlHttp=new XMLHttpRequest();
     var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
     /*id set*/
@@ -132,7 +133,8 @@ function get_csv(){
                 if(arr[i] == '') break;
                 res[i] = arr[i].split(',');
             }
-            return res;
+            console.log(res);
+            data_search(res,data);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
             alert("CSVデータの取得に失敗しました");
@@ -218,6 +220,8 @@ function data_search(csv,score){
     disp+='text.parentElement.removeChild(text);}';
     disp+='</script>'; 
     
+    score_detail();
+    
 }
 
 
@@ -295,6 +299,17 @@ function score_detail(){
     disp+='<h2>300万、400万数</h2>';
     disp+='<p>300万:'+god_count[0]+'曲</p>';
     disp+='<p>400万:'+god_count[1]+'曲</p>';
+    
+    score_disp();
+}
+
+function score_disp(){
+    disp+='</body></html>'
+    var nwin=window.open();
+    //nwin.document.open();
+    nwin.document.write(disp);
+    //nwin.document.close();
+    console.log("err");
 }
 
 get_id();
