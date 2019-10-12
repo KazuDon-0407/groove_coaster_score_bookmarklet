@@ -64,6 +64,7 @@ function get_id(){
             );
             get_score(play_id);
         }
+        else alert("error");
     };
     xmlHttp.send(null);
 }
