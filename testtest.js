@@ -284,9 +284,10 @@ function score_disp(){
     document.body.innerHTML=disp;
 
 }
+var p=window.open();
 var tag="";
 tag+='<html><head><title>api</title></head><body><p>now loading...</p></body></html>';
 var header='<title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script>';
-document.write(tag);
+p.document.write(tag);
 //get_id();
 alert("?");
