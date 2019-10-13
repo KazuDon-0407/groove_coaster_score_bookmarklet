@@ -137,15 +137,16 @@ function data_search(csv,score){
                 all_diff[j]=csv[i][lower_diff+j];
                 all_score[j]=score[current_id][lower_score+j];            
                 
-                disp+=","+all_score[j];
                 if(csv[i][lower_diff+j]<1){
                     continue;
                 }
                 
-                genre_total_score[current_genre]+=all_score[j];
-                diff_total_score[all_diff[j]-1]+=all_score[j];
+                disp+=","+all_score[j];
                 
-                diff_num[all_diff[j]-1][j]++;
+                genre_total_score[current_genre]+=all_score[j];
+                diff_total_score[all_diff[j]-1][i]+=all_score[j];
+                
+                diff_num[all_diff[j]-1][i]++;
                 genre_num[current_genre]++;
             }            
 
