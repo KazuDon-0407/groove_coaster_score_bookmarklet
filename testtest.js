@@ -186,7 +186,7 @@ function score_detail(){
         disp+='<table style="padding:15px">';
         disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
         for(var j=0;j<diff_rank;j++){
-            if(diff_num[j][i]>0){
+            if(diff_num[i][j]>0){
                 disp+='<tr align="center">';
                 disp+='<td>'+diff_str[i]+(j+1)+'</td>';
                 disp+='<td>'+diff_total_score[i][j]+'</td>';
