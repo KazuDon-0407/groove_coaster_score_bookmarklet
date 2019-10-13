@@ -151,11 +151,9 @@ function data_search(csv,score){
 
             if((all_score[0]+all_score[1]+all_score[2])==3000000) god_count[0]++;  
             if((all_score[0]+all_score[1]+all_score[2]+all_score[3])==4000000) god_count[1]++;
-          }
             disp+='<br>';
-       }
-       
-    }
+          }
+    }       
     disp+='</p>';
     disp+='</div>';
     
