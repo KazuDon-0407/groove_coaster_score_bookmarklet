@@ -69,7 +69,7 @@ function get_id(){
             get_score(play_id);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
-            alert("通信エラー\nマイページにログインして実行してください");
+            nwin.alert("通信エラー\nマイページにログインして実行してください");
         }
     };
     xmlHttp.send(null);
@@ -97,7 +97,7 @@ function get_score(id){
                     data_array[music_id][i+1]=score_data;
                 }
                 if(index==id.length-1){
-                    console.log(data_array);
+                    //console.log(data_array);
                     get_csv(data_array);
                 }
             }
@@ -295,10 +295,11 @@ function score_detail(){
 
 function score_disp(){
     disp+='</body></html>'
-    var nwin=window.open('','_blank');
+    //var nwin=window.open('','_blank');
     nwin.document.open();
     nwin.document.write(disp);
     nwin.document.close();
     console.log("err");
 }
+var nwin=window.open('','_blank');
 get_id();
