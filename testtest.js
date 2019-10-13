@@ -64,7 +64,6 @@ function get_id(){
                     return a - b;
                 }
             );
-            document.body.innerHTML='<p>データ取得中...</p>';
             get_score(play_id);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
