@@ -64,6 +64,7 @@ function get_id(){
                     return a - b;
                 }
             );
+            alert("OKを押すとデータ取り込みを開始します");
             get_score(play_id);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
