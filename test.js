@@ -127,7 +127,7 @@ function get_csv(data){
             data_search(res,data);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
-            alert("CSVデータの取得に失敗しました");
+            nwin.alert("CSVデータの取得に失敗しました");
         }
     };
     xmlHttp.send(null);
@@ -301,5 +301,6 @@ function score_disp(){
     nwin.document.close();
     console.log("err");
 }
+
 var nwin=window.open('','_blank');
 get_id();
