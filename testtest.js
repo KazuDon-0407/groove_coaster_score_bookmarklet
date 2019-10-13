@@ -13,8 +13,8 @@ var god_count=[0,0];
 
 var genre_total_score=new Array(genre_str.length);
 var genre_num=new Array(genre_str.length);
-var diff_total_score=new Array(diff_rank);
-var diff_num=new Array(diff_rank);
+var diff_total_score=new Array(diff_str.length);
+var diff_num=new Array(diff_str.length);
 
 
 /*配列の初期化*/
@@ -23,12 +23,12 @@ for(var i=0;i<genre_str.length;i++){
     genre_num[i]=0;
 }
 
-/*diff[rank][diff]*/
+/*diff[diff_kind][level]*/
 
-for(var i=0;i<diff_rank;i++){
-    diff_total_score[i]=new Array(diff_str.length);
-    diff_num[i]=new Array(diff_str.length);
-    for(var j=0;j<diff_str.length;j++){
+for(var i=0;i<diff_str.length;i++){
+    diff_total_score[i]=new Array(diff_rank);
+    diff_num[i]=new Array(diff_rank);
+    for(var j=0;j<diff_rank;j++){
         diff_total_score[i][j]=0;
         diff_num[i][j]=0;
     }
@@ -144,9 +144,9 @@ function data_search(csv,score){
                 disp+=","+all_score[j];
                 
                 genre_total_score[current_genre]+=all_score[j];
-                diff_total_score[all_diff[j]-1][i]+=all_score[j];
+                diff_total_score[j][all_diff[j]-1]+=all_score[j];
                 
-                diff_num[all_diff[j]-1][i]++;
+                diff_num[j][all_diff[j]-1]++;
                 genre_num[current_genre]++;
             }            
 
@@ -189,8 +189,8 @@ function score_detail(){
             if(diff_num[j][i]>0){
                 disp+='<tr align="center">';
                 disp+='<td>'+diff_str[i]+(j+1)+'</td>';
-                disp+='<td>'+diff_total_score[j][i]+'</td>';
-                disp+='<td>'+Math.floor(diff_total_score[j][i]/diff_num[j][i])+'</td>';
+                disp+='<td>'+diff_total_score[i][j]+'</td>';
+                disp+='<td>'+Math.floor(diff_total_score[i][j]/diff_num[i][j])+'</td>';
                 disp+='</tr>';
             }
         }
