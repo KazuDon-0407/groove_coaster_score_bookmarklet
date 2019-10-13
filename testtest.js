@@ -76,8 +76,7 @@ function get_id(){
 function get_score(id){
     var data_array=[];
     var xhr=[];
-    //disp+='<html><head><title>コピー</title></head><body><h1>あなたの全スコア</h1>';
-    disp+='<h1>あなたの全スコア</h1>';
+    disp+='<html><head><title>コピー</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
@@ -280,13 +279,21 @@ function score_detail(){
 }
 
 function score_disp(){
-    //disp+='</body></html>';
-    document.body.innerHTML=disp;
+    disp+='</body></html>';
+    document.write(disp);
 
 }
-var tag="";
-tag+='<html><head></head><body></body></html>';
-var header='<title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script>';
-document.write(tag);
-//get_id();
-alert("?");
+
+function copyToClipboard(){
+    var copyTarget = document.getElementById("CopyTarget");
+    var text = document.createElement("textarea");
+    text.value = copyTarget.innerText;
+    document.body.appendChild(text);
+    text.select();
+    document.execCommand("copy");
+    alert("クリップボードにコピーしました。");
+    text.parentElement.removeChild(text);
+}
+
+
+get_id();
