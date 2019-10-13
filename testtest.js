@@ -1,15 +1,8 @@
 const title=0;
 const csv_id=1;
 const genre=2;
-const simple_diff=3;
-const normal_diff=4;
-const hard_diff=5;
-const extra_diff=6;
-
-const simple_score=1;
-const normal_score=2;
-const hard_score=3;
-const extra_score=4;
+const lower_diff=3;
+const lower_score=1;
 
 const diff_rank=15;
 
@@ -20,14 +13,9 @@ var god_count=[0,0];
 
 var genre_total_score=new Array(genre_str.length);
 var genre_num=new Array(genre_str.length);
-var simple_total_score=new Array(diff_rank);
-var simple_num=new Array(diff_rank);
-var normal_total_score=new Array(diff_rank);
-var normal_num=new Array(diff_rank);
-var hard_total_score=new Array(diff_rank);
-var hard_num=new Array(diff_rank);
-var extra_total_score=new Array(diff_rank);
-var extra_num=new Array(diff_rank);
+var diff_total_score=new Array(diff_rank);
+var diff_num=new Array(diff_rank);
+
 
 /*配列の初期化*/
 for(var i=0;i<genre_str.length;i++){
@@ -35,16 +23,17 @@ for(var i=0;i<genre_str.length;i++){
     genre_num[i]=0;
 }
 
+/*diff[rank][diff]*/
+
 for(var i=0;i<diff_rank;i++){
-    simple_total_score[i]=0;
-    simple_num[i]=0;
-    normal_total_score[i]=0;
-    normal_num[i]=0;
-    hard_total_score[i]=0;
-    hard_num[i]=0;
-    extra_total_score[i]=0;
-    extra_num[i]=0;
+    diff_total_score[i]=new Array(diff_str.length);
+    diff_num[i]=new Array(diff_str.length);
+    for(var j=0;j<diff_str.length;j++){
+        diff_total_score[i][j]=0;
+        diff_num[i][j]=0;
+    }
 }
+
 
 const timeout=10000;
 
@@ -141,55 +130,30 @@ function data_search(csv,score){
         }
         var current_id=csv[i][csv_id];
         if(score[current_id]!=undefined){
-            var s_diff=csv[i][simple_diff];
-            var n_diff=csv[i][normal_diff];
-            var h_diff=csv[i][hard_diff];
-            var e_diff=csv[i][extra_diff];
-            var s_score=score[current_id][simple_score];
-            var n_score=score[current_id][normal_score];
-            var h_score=score[current_id][hard_score];
-            disp+=csv[i][title]+",";
-            
-            genre_total_score[current_genre]+=s_score;
-            simple_total_score[s_diff-1]+=s_score;
-            if(s_score>0) {
-                simple_num[s_diff-1]++;
-                genre_num[current_genre]++;
-            }
-            disp+=s_score+",";
-            
-            genre_total_score[current_genre]+=n_score;
-            normal_total_score[n_diff-1]+=n_score;
-            if(n_score>0) {
-                normal_num[n_diff-1]++;
-                genre_num[current_genre]++;
-            }
-            disp+=n_score+",";
-            
-            genre_total_score[current_genre]+=h_score;
-            hard_total_score[h_diff-1]+=h_score;
-            if(h_score>0) {
-                hard_num[h_diff-1]++;
-                genre_num[current_genre]++;
-            }
-            disp+=h_score;
-            
-            if(s_score+n_score+h_score==3000000) god_count[0]++;
-            
-            if(csv[i][extra_diff]>=1){
-                var e_score=score[current_id][extra_score];
-                genre_total_score[current_genre]+=e_score;
-                extra_total_score[e_diff-1]+=e_score;
-                if(e_score>0) {
-                    extra_num[e_diff-1]++;
-                    genre_num[current_genre]++;
-                }
-                disp+=","+e_score;
+            var all_diff=new Array(diff_str.length);
+            var all_score=new Array(diff_str.length);
+            disp+=csv[i][title];
+            for(var j=0;j<diff_str.length;j++){
+                all_diff[j]=csv[i][lower_diff+j];
+                all_score[j]=score[current_id][lower_score+j];            
                 
-                if(s_score+n_score+h_score+e_score==4000000) god_count[1]++;
-            }
+                disp+=","+all_score[j];
+                if(csv[i][lower_diff+j]<1){
+                    continue;
+                }
+                
+                genre_total_score[current_genre]+=all_score[j];
+                diff_total_score[all_diff[j]-1]+=all_score[j];
+                
+                diff_num[all_diff[j]-1][j]++;
+                genre_num[current_genre]++;
+            }            
+
+            if((all_score[0]+all_score[1]+all_score[2])==3000000) god_count[0]++;  
+            if((all_score[0]+all_score[1]+all_score[2]+all_score[3])==4000000) god_count[1]++;
+          }
             disp+='<br>';
-        }
+       }
        
     }
     disp+='</p>';
@@ -217,61 +181,24 @@ function score_detail(){
     disp+='</table>';
     
     disp+='<h2>難易度別詳細</h2>';
-    disp+='<h3>simple</h3>';
-    disp+='<table style="padding:15px">';
-    disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank;i++){
-        if(simple_num[i]>0){
-            disp+='<tr align="center">';
-            disp+='<td>simple'+(i+1)+'</td>';
-            disp+='<td>'+simple_total_score[i]+'</td>';
-            disp+='<td>'+Math.floor(simple_total_score[i]/simple_num[i])+'</td>';
-            disp+='</tr>';
-        }
-    }
-    disp+='</table>';
     
-    disp+='<h3>normal</h3>';
-    disp+='<table style="padding:15px">';
-    disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank;i++){
-        if(normal_num[i]>0){
-            disp+='<tr align="center">';
-            disp+='<td>normal'+(i+1)+'</td>';
-            disp+='<td>'+normal_total_score[i]+'</td>';
-            disp+='<td>'+Math.floor(normal_total_score[i]/normal_num[i])+'</td>';
-            disp+='</tr>';
+    for(var i=0;i<diff_str.length;i++){
+        disp+='<h3>'+diff_str[i]+'</h3>';
+        disp+='<table style="padding:15px">';
+        disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
+        for(var j=0;j<diff_rank;j++){
+            if(diff_num[j][i]>0){
+                disp+='<tr align="center">';
+                disp+='<td>'+diff_str[i]+(j+1)+'</td>';
+                disp+='<td>'+diff_total_score[j][i]+'</td>';
+                disp+='<td>'+Math.floor(diff_total_score[j][i]/diff_num[j][i])+'</td>';
+                disp+='</tr>';
+            }
         }
+        disp+='</table>';
     }
-    disp+='</table>';
     
-    disp+='<h3>hard</h3>';
-    disp+='<table style="padding:15px">';
-    disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank;i++){
-        if(hard_num[i]>0){
-            disp+='<tr align="center">';
-            disp+='<td>hard'+(i+1)+'</td>';
-            disp+='<td>'+hard_total_score[i]+'</td>';
-            disp+='<td>'+Math.floor(hard_total_score[i]/hard_num[i])+'</td>';
-            disp+='</tr>';
-        }
-    }
-    disp+='</table>';
-    
-    disp+='<h3>extra</h3>';
-    disp+='<table style="padding:15px">';
-    disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th></tr>';
-    for(var i=0;i<diff_rank;i++){
-        if(extra_num[i]>0){
-            disp+='<tr align="center">';
-            disp+='<td>extra'+(i+1)+'</td>';
-            disp+='<td>'+extra_total_score[i]+'</td>';
-            disp+='<td>'+Math.floor(extra_total_score[i]/extra_num[i])+'</td>';
-            disp+='</tr>';
-        }
-    }
-    disp+='</table>';
+   
     
     disp+='<h2>300万、400万数</h2>';
     disp+='<p>300万:'+god_count[0]+'曲</p>';
