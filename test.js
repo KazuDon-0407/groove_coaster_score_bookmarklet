@@ -78,7 +78,7 @@ function get_id(){
 function get_score(id){
     var data_array=[];
     var xhr=[];
-    disp+='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
+    //disp+='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
@@ -294,13 +294,13 @@ function score_detail(){
 }
 
 function score_disp(){
-    disp+='</body></html>'
+    //disp+='</body></html>';
     //var nwin=window.open('','_blank');
-    nwin.document.open();
-    nwin.document.write(disp);
-    nwin.document.close();
-    console.log("err");
+    //nwin.document.open();
+    nwin.document.body.innerHTML=disp;
+    //nwin.document.close();
 }
 
 var nwin=window.open('','_blank');
+nwin.document.write('<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1></body></html>');
 get_id();
