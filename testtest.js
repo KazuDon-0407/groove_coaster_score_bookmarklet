@@ -284,7 +284,8 @@ function score_disp(){
     document.body.innerHTML=disp;
 
 }
-var tag='<html><head></head><body></body></html>';
+var tag="";
+tag+='<html><head></head><body></body></html>';
 var header='<title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script>';
 document.write(tag);
 //get_id();
