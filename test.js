@@ -200,17 +200,8 @@ function data_search(csv,score){
     }
     disp+='</p>';
     disp+='</div>';
-    //disp+='<script>';
-    //disp+='function copyToClipboard(){';
-    //disp+='var copyTarget = document.getElementById("CopyTarget");';
-    //disp+='var text = document.createElement("textarea");';
-    //disp+='text.value = copyTarget.innerText;';
-    //disp+='document.body.appendChild(text);';
-    //disp+='text.select();';
-    //disp+='document.execCommand("copy");';
-    //disp+='alert("クリップボードにコピーしました。");';
-    //disp+='text.parentElement.removeChild(text);}';
-    //disp+='</script>'; 
+    
+    /*Clipboard Tag*/
     
     score_detail();
     
