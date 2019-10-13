@@ -173,22 +173,22 @@ function data_search(csv,score){
                 
                 if(all_score[j]>=900000){
                     genre_s_rate[current_genre]++;
-                    diff_s_rate[i][all_diff[j]-1]++;
+                    diff_s_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]>=950000){
                     genre_sp_rate[current_genre]++;
-                    diff_sp_rate[i][all_diff[j]-1]++;
+                    diff_sp_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]>=990000){
                     genre_spp_rate[current_genre]++;
-                    diff_spp_rate[i][all_diff[j]-1]++;
+                    diff_spp_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]==1000000){
                     genre_perfect_rate[current_genre]++;
-                    diff_perfect_rate[i][all_diff[j]-1]++;
+                    diff_perfect_rate[j][all_diff[j]-1]++;
                 }
             }            
 
