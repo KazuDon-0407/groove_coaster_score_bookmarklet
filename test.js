@@ -66,6 +66,7 @@ function get_id(){
                     return a - b;
                 }
             );
+            nwin.document.body.innerHTML='<p>データ取得中...</p>';
             get_score(play_id);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
@@ -79,6 +80,7 @@ function get_score(id){
     var data_array=[];
     var xhr=[];
     //disp+='<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1>';
+    disp+='<h1>あなたの全スコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
@@ -123,7 +125,7 @@ function get_csv(data){
                 if(arr[i] == '') break;
                 res[i] = arr[i].split(',');
             }
-            console.log(res);
+            //console.log(res);
             data_search(res,data);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
@@ -302,5 +304,5 @@ function score_disp(){
 }
 
 var nwin=window.open('','_blank');
-nwin.document.write('<html><head><title>新規タブ</title></head><body><h1>あなたの全スコア</h1></body></html>');
+nwin.document.write('<html><head><title>groove coaster score</title></head><body></body></html>');
 get_id();
