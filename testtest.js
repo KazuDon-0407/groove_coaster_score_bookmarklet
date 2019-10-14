@@ -209,10 +209,9 @@ function data_search(csv,score){
         }
         
         else{
-            //未プレイ楽曲だった場合の処理(母数のみ数える)
+            //完全未プレイ楽曲だった場合の処理(母数のみ数える)
             for(var j=0;j<diff_str.length;j++){
                 all_diff[j]=csv[i][lower_diff+j];
-                all_score[j]=score[current_id][lower_score+j];
                 
                 if(csv[i][lower_diff+j]<1){
                     continue;
