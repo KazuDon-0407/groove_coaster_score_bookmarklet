@@ -68,10 +68,20 @@ for(var i=0;i<diff_str.length;i++){
 
 const timeout=10000;
 
+const mypage_host='https://mypage.groovecoaster.jp';
+const github_host='https://kazudon-0407.github.io';
+
+function get_url(host,path,param){
+    return host+path+param;
+}
+
 function get_id(){
+    const list_path='/sp/json/music_list.php';
+    const list_para='';
+    const list_url=get_url(mypage_host,list_path,list_para);
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_list.php?hash=89d109ad502af74f3c42a7756a3f1ed69a1ab02015570d99b3c6085f3af8f7f2",true);
+    xmlHttp.open("GET",list_url,true);
     xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
@@ -97,12 +107,15 @@ function get_id(){
 function get_score(id){
     var data_array=[];
     var xhr=[];
+    const detail_path='/sp/json/music_detail.php';
+    const detail_para='?music_id=';
+    const detail_url=get_url(mypage_host,detail_path,detail_para);
     disp+='<html><head><title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
         xhr[music_id]=new XMLHttpRequest();
-        xhr[music_id].open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_detail.php?music_id="+music_id+"&hash=89d109ad502af74f3c42a7756a3f1ed69a1ab02015570d99b3c6085f3af8f7f2",true);
+        xhr[music_id].open("GET",detail_url+music_id,true);
         xhr[music_id].onreadystatechange = function(){
             if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
                 var data=JSON.parse(xhr[music_id].responseText);
@@ -127,7 +140,9 @@ function get_score(id){
 
 function get_csv(data){
     var xmlHttp=new XMLHttpRequest();
-    var csv_url="https://kazudon-0407.github.io/groove_coaster_score_bookmarklet/genre_sort_database.csv";
+    const csv_path='/groove_coaster_score_bookmarklet/genre_sort_database.csv';
+    const csv_para='';
+    const csv_url=get_url(github_host,csv_path,csv_para);
     /*id set*/
     xmlHttp.open("GET",csv_url,true);
     xmlHttp.timeout=timeout;
