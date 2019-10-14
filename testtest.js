@@ -97,7 +97,7 @@ function get_id(){
 function get_score(id){
     var data_array=[];
     var xhr=[];
-    disp+='<html><head><title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script></head><body><h1>あなたの全スコア</h1>';
+    disp+='<html><head><title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
@@ -178,8 +178,6 @@ function data_search(csv,score){
                 genre_total_score[current_genre][j]+=all_score[j];
                 diff_total_score[j][all_diff[j]-1]+=all_score[j];
                 
-                diff_num[j][all_diff[j]-1]++;
-                genre_num[current_genre][j]++;
                 
                 if(all_score[j]>=900000){
                     genre_s_rate[current_genre][j]++;
@@ -205,7 +203,16 @@ function data_search(csv,score){
             if((all_score[0]+all_score[1]+all_score[2])==3000000) god_count[0]++;  
             if((all_score[0]+all_score[1]+all_score[2]+all_score[3])==4000000) god_count[1]++;
             disp+='<br>';
-          }
+        }
+        
+        for(var j=0;j<diff_str.length;j++){
+            if(csv[i][lower_diff+j]<1){
+                continue;
+            }
+            diff_num[j][all_diff[j]-1]++;
+            genre_num[current_genre][j]++;
+        }
+        
     }       
     disp+='</p>';
     disp+='</div>';
