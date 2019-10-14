@@ -110,7 +110,7 @@ function get_score(id){
     const detail_path='/sp/json/music_detail.php';
     const detail_para='?music_id=';
     const detail_url=get_url(mypage_host,detail_path,detail_para);
-    disp+='<html><head><title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
+    disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title><script>function copyToClipboard(){var copyTarget = document.getElementById("CopyTarget");var text = document.createElement("textarea");text.value = copyTarget.innerText;document.body.appendChild(text);text.select();document.execCommand("copy");alert("クリップボードにコピーしました。");text.parentElement.removeChild(text);}</script></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
