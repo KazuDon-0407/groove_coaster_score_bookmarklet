@@ -71,7 +71,7 @@ const timeout=10000;
 function get_id(){
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_list.php?hash=b3f24aeb4a7e48598f145af46e685c37eec10fe1e1d6481e648036d7d7168fab",true);
+    xmlHttp.open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_list.php?hash=89d109ad502af74f3c42a7756a3f1ed69a1ab02015570d99b3c6085f3af8f7f2",true);
     xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
@@ -102,7 +102,7 @@ function get_score(id){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
         xhr[music_id]=new XMLHttpRequest();
-        xhr[music_id].open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_detail.php?music_id="+music_id+"&hash=b3f24aeb4a7e48598f145af46e685c37eec10fe1e1d6481e648036d7d7168fab",true);
+        xhr[music_id].open("GET","https://mypage.groovecoaster.jp/sp/json/friend_music_detail.php?music_id="+music_id+"&hash=89d109ad502af74f3c42a7756a3f1ed69a1ab02015570d99b3c6085f3af8f7f2",true);
         xhr[music_id].onreadystatechange = function(){
             if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
                 var data=JSON.parse(xhr[music_id].responseText);
