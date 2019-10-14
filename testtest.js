@@ -161,9 +161,9 @@ function data_search(csv,score){
             disp+='<h2>['+genre_str[current_genre]+']</h2>';
         }
         var current_id=csv[i][csv_id];
+        var all_diff=new Array(diff_str.length);
+        var all_score=new Array(diff_str.length);
         if(score[current_id]!=undefined){
-            var all_diff=new Array(diff_str.length);
-            var all_score=new Array(diff_str.length);
             disp+=csv[i][title];
             for(var j=0;j<diff_str.length;j++){
                 all_diff[j]=csv[i][lower_diff+j];
@@ -174,6 +174,9 @@ function data_search(csv,score){
                 }
                 
                 disp+=","+all_score[j];
+                
+                diff_num[j][all_diff[j]-1]++;
+                genre_num[current_genre][j]++;
                 
                 genre_total_score[current_genre][j]+=all_score[j];
                 diff_total_score[j][all_diff[j]-1]+=all_score[j];
@@ -205,12 +208,18 @@ function data_search(csv,score){
             disp+='<br>';
         }
         
-        for(var j=0;j<diff_str.length;j++){
-            if(csv[i][lower_diff+j]<1){
-                continue;
+        else{
+            //未プレイ楽曲だった場合の処理(母数のみ数える)
+            for(var j=0;j<diff_str.length;j++){
+                all_diff[j]=csv[i][lower_diff+j];
+                all_score[j]=score[current_id][lower_score+j];
+                
+                if(csv[i][lower_diff+j]<1){
+                    continue;
+                }
+                diff_num[j][all_diff[j]-1]++;
+                genre_num[current_genre][j]++;
             }
-            diff_num[j][all_diff[j]-1]++;
-            genre_num[current_genre][j]++;
         }
         
     }       
