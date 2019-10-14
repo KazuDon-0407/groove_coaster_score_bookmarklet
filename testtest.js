@@ -150,6 +150,7 @@ function get_csv(data){
 }
 
 function data_search(csv,score){
+    disp+='<p>以下のボタンを押すとスコアをコピーできます</p>';
     disp+='<button onclick="copyToClipboard()">Copy Score</button>';
     disp+='<div id="CopyTarget">';
     var current_genre=-1;
@@ -157,7 +158,7 @@ function data_search(csv,score){
     for(var i=0;i<csv.length;i++){
         if(current_genre!=csv[i][genre]){
             current_genre=csv[i][genre];
-            disp+='<h2>'+genre_str[current_genre]+'</h2>';
+            disp+='<h2>〇'+genre_str[current_genre]+'</h2>';
         }
         var current_id=csv[i][csv_id];
         if(score[current_id]!=undefined){
@@ -217,11 +218,11 @@ function data_search(csv,score){
 
 
 function score_detail(){
-    disp+='<h1>スコア詳細</h1>';
-    disp+='<h2>ジャンル別詳細</h2>';
+    disp+='<h1>◎スコア詳細</h1>';
+    disp+='<h2>〇ジャンル別詳細</h2>';
 
     for(var i=0;i<genre_str.length;i++){
-        disp+='<h3>'+genre_str[i]+'</h3>';
+        disp+='<h3>['+genre_str[i]+']</h3>';
         for(var j=0;j<diff_str.length;j++){
             disp+='<table style="padding:15px">';
             disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
@@ -237,7 +238,7 @@ function score_detail(){
         disp+='</table>';
     }
  
-    disp+='<h2>難易度別詳細</h2>';
+    disp+='<h2>〇難易度別詳細</h2>';
     
     for(var i=0;i<diff_str.length;i++){
         disp+='<h3>'+diff_str[i]+'</h3>';
@@ -246,7 +247,7 @@ function score_detail(){
         for(var j=0;j<diff_rank;j++){
             if(diff_num[i][j]>0){
                 disp+='<tr align="center">';
-                disp+='<td>'+diff_str[i]+(j+1)+'</td>';
+                disp+='<td>['+diff_str[i]+(j+1)+']</td>';
                 disp+='<td>'+diff_total_score[i][j]+'</td>';
                 disp+='<td>'+diff_s_rate[i][j]+"/"+diff_num[i][j]+'</td>';
                 disp+='<td>'+diff_sp_rate[i][j]+"/"+diff_num[i][j]+'</td>';
@@ -260,9 +261,9 @@ function score_detail(){
     
    
     
-    disp+='<h2>300万、400万数</h2>';
-    disp+='<p>300万:'+god_count[0]+'曲</p>';
-    disp+='<p>400万:'+god_count[1]+'曲</p>';
+    disp+='<h2>〇300万、400万数(削除曲を除く)</h2>';
+    disp+='<p>・300万:'+god_count[0]+'曲</p>';
+    disp+='<p>・400万:'+god_count[1]+'曲</p>';
     
     score_disp();
 }
