@@ -110,7 +110,7 @@ function get_score(id){
     const detail_path='/sp/json/music_detail.php';
     const detail_para='?music_id=';
     const detail_url=get_url(mypage_host,detail_path,detail_para);
-    disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title><script>var copyScoreBtn = document.querySelector(".js-copybtn");copyScoreBtn.addEventListener("click", function(event) {var copyText = document.querySelector("#CopyTarget");var range = document.createRange();range.selectNode(copyText); window.getSelection().addRange(range);try {var successful = document.execCommand("copy");alert("クリップボードにコピーしました");} catch(err) {alert("コピーに失敗しました")}window.getSelection().removeAllRanges();});</script></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
+    disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title></head><body><h1>あなたのプレイ済み楽曲のスコア</h1>';
     id.forEach(function(music_id,index){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
@@ -300,6 +300,7 @@ function score_detail(){
 }
 
 function score_disp(){
+    disp+='<script>var copyScoreBtn = document.querySelector(".js-copybtn");copyScoreBtn.addEventListener("click", function(event) {var copyText = document.querySelector("#CopyTarget");var range = document.createRange();range.selectNode(copyText); window.getSelection().addRange(range);try {var successful = document.execCommand("copy");alert("クリップボードにコピーしました");} catch(err) {alert("コピーに失敗しました")}window.getSelection().removeAllRanges();});</script>';
     disp+='</body></html>';
     document.write(disp);
 
