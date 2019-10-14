@@ -29,14 +29,23 @@ var diff_perfect_rate=new Array(diff_str.length);
 
 /*配列の初期化*/
 for(var i=0;i<genre_str.length;i++){
-    genre_total_score[i]=0;
-    genre_num[i]=0;
-    genre_s_rate[i]=0;
-    genre_sp_rate[i]=0;
-    genre_spp_rate[i]=0;
-    genre_perfect_rate[i]=0;
+    genre_total_score[i]=new Array(diff_str.length);
+    genre_num[i]=new Array(diff_str.length);
+    genre_s_rate[i]=new Array(diff_str.length);
+    genre_sp_rate[i]=new Array(diff_str.length);
+    genre_spp_rate[i]=new Array(diff_str.length);
+    genre_perfect_rate[i]=new Array(diff_str.length);
+    for(var j=0;j<diff_str.length;j++){
+        genre_total_score[i][j]=0;
+        genre_num[i][j]=0;
+        genre_s_rate[i][j]=0;
+        genre_sp_rate[i][j]=0;
+        genre_spp_rate[i][j]=0;
+        genre_perfect_rate[i][j]=0;
+    }
 }
 
+/*genre[genre_kind][diff_kind]*/
 /*diff[diff_kind][level]*/
 
 for(var i=0;i<diff_str.length;i++){
@@ -165,29 +174,29 @@ function data_search(csv,score){
                 
                 disp+=","+all_score[j];
                 
-                genre_total_score[current_genre]+=all_score[j];
+                genre_total_score[current_genre][j]+=all_score[j];
                 diff_total_score[j][all_diff[j]-1]+=all_score[j];
                 
                 diff_num[j][all_diff[j]-1]++;
-                genre_num[current_genre]++;
+                genre_num[current_genre][j]++;
                 
                 if(all_score[j]>=900000){
-                    genre_s_rate[current_genre]++;
+                    genre_s_rate[current_genre][j]++;
                     diff_s_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]>=950000){
-                    genre_sp_rate[current_genre]++;
+                    genre_sp_rate[current_genre][j]++;
                     diff_sp_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]>=990000){
-                    genre_spp_rate[current_genre]++;
+                    genre_spp_rate[current_genre][j]++;
                     diff_spp_rate[j][all_diff[j]-1]++;
                 }
                 
                 if(all_score[j]==1000000){
-                    genre_perfect_rate[current_genre]++;
+                    genre_perfect_rate[current_genre][j]++;
                     diff_perfect_rate[j][all_diff[j]-1]++;
                 }
             }            
@@ -210,33 +219,35 @@ function data_search(csv,score){
 function score_detail(){
     disp+='<h1>スコア詳細</h1>';
     disp+='<h2>ジャンル別詳細</h2>';
-    disp+='<table style="padding:15px">';
-    disp+='<tr align="center"><th>ジャンル</th><th>トータルスコア</th><th>平均スコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+
     for(var i=0;i<genre_str.length;i++){
-        disp+='<tr align="center">';
-        disp+='<td>'+genre_str[i]+'</td>';
-        disp+='<td>'+genre_total_score[i]+'</td>';
-        disp+='<td>'+Math.floor(genre_total_score[i]/genre_num[i])+'</td>';
-        disp+='<td>'+genre_s_rate[i]+"/"+genre_num[i]+'</td>';
-        disp+='<td>'+genre_sp_rate[i]+"/"+genre_num[i]+'</td>';
-        disp+='<td>'+genre_spp_rate[i]+"/"+genre_num[i]+'</td>';
-        disp+='<td>'+genre_perfect_rate[i]+"/"+genre_num[i]+'</td>';
-        disp+='</tr>';
+        disp+='<h3>'+genre_str[i]+'</h3>';
+        for(var j=0;j<diff_str.length;j++){
+            disp+='<table style="padding:15px">';
+            disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+            disp+='<tr align="center">';
+            disp+='<td>'+diff_str[j]+'</td>';
+            disp+='<td>'+genre_total_score[i][j]+'</td>';
+            disp+='<td>'+genre_s_rate[i][j]+"/"+genre_num[i][j]+'</td>';
+            disp+='<td>'+genre_sp_rate[i][j]+"/"+genre_num[i][j]+'</td>';
+            disp+='<td>'+genre_spp_rate[i][j]+"/"+genre_num[i][j]+'</td>';
+            disp+='<td>'+genre_perfect_rate[i][j]+"/"+genre_num[i][j]+'</td>';
+            disp+='</tr>';
+        }
+        disp+='</table>';
     }
-    disp+='</table>';
-    
+ 
     disp+='<h2>難易度別詳細</h2>';
     
     for(var i=0;i<diff_str.length;i++){
         disp+='<h3>'+diff_str[i]+'</h3>';
         disp+='<table style="padding:15px">';
-        disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>平均スコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+        disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
         for(var j=0;j<diff_rank;j++){
             if(diff_num[i][j]>0){
                 disp+='<tr align="center">';
                 disp+='<td>'+diff_str[i]+(j+1)+'</td>';
                 disp+='<td>'+diff_total_score[i][j]+'</td>';
-                disp+='<td>'+Math.floor(diff_total_score[i][j]/diff_num[i][j])+'</td>';
                 disp+='<td>'+diff_s_rate[i][j]+"/"+diff_num[i][j]+'</td>';
                 disp+='<td>'+diff_sp_rate[i][j]+"/"+diff_num[i][j]+'</td>';
                 disp+='<td>'+diff_spp_rate[i][j]+"/"+diff_num[i][j]+'</td>';
