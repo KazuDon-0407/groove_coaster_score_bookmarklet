@@ -1,4 +1,3 @@
-
 var page = window.open(); 
 const title=0;
 const csv_id=1;
@@ -304,9 +303,17 @@ function data_search(csv,score){
                 if(typeof score[current_id][j] === "undefined") {
                     score[current_id][j] = "-";
                 }
-                (j==0) ? disp+='<td align="left">': disp+='<td align="center">';
-                disp+=score[current_id][j]+'</td>';
-                csv_txt+=score[current_id][j];
+                if(j==0){
+                    disp+='<td align="left">';
+                    disp+=csv[i][title]+'</td>';
+                    csv_txt+=csv[i][title];
+                }
+                else{
+                    disp+='<td align="center">';
+                    disp+=score[current_id][j]+'</td>';
+                    csv_txt+=score[current_id][j];
+                }
+
                 if(j<score_data_maxlen-1) csv_txt+=',';
             }
             disp+='</tr>';
