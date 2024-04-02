@@ -202,6 +202,9 @@ async function get_score(){
                         /*get_csv(all_data);*/
                     }
                 }
+                else if (xhr[music_id].readyState === 4 && xhr[music_id].status === 0){
+                    alert("データ取り込みに失敗しました");
+                }
             };
             xhr[music_id].send(null);
         });
@@ -238,14 +241,16 @@ async function get_csv(){
 
 async function data_search(){
     return new Promise(function(resolve) {
-        disp+='<p>以下のボタンを押すとデータをCSVファイルとして保存できます</p>';
-        disp+='<button onclick="downloadCSV()">CSV Download</button>';
+        
+        disp+='<h3>以下のボタンを押すとデータをCSVファイルとして保存できます</h3>';
+        disp+='<style>.custom-button {display: inline-block;padding: 10px 20px;font-size: 16px;text-align: center;text-decoration: none;cursor: pointer;border: 2px solid #9A7BF4;color: #9A7BF4;background-color: transparent;border-radius: 5px;transition: background-color 0.3s, color 0.3s;}.custom-button:hover {background-color: #9A7BF4;color: white;}</style>';
+        disp+='<button class="custom-button" onclick="downloadCSV()">CSV Download</button>';
         /*disp+='<button class="js-copybtn">copy</button>';*/
         disp+='<div id="CopyTarget">';
         var current_genre=-1;
         disp+='<p>';
 
-        disp+='<table style="padding:15px">';
+        disp+='<table style="padding:15px;font-size:16px;">';
         disp+='<tr align="center"><th rowspan="2">曲名</th><th colspan="4">スコア</th><th colspan="4">プレイ回数</th><th colspan="4">Perfect回数</th><th colspan="4">順位</th></tr>';
         disp+='<tr align="center"><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th></tr>';
 
