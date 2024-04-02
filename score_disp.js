@@ -18,6 +18,7 @@ var player_name;
 var play_id;
 var all_data=[];
 var csv=[];
+var is_display_alert = false;
 
 var csv_txt="";
 
@@ -35,11 +36,13 @@ var genre_s_rate=new Array(genre_str.length);
 var genre_sp_rate=new Array(genre_str.length);
 var genre_spp_rate=new Array(genre_str.length);
 var genre_perfect_rate=new Array(genre_str.length);
+var genre_is_play=new Array(genre_str.length);
 
 var diff_s_rate=new Array(diff_str.length);
 var diff_sp_rate=new Array(diff_str.length);
 var diff_spp_rate=new Array(diff_str.length);
 var diff_perfect_rate=new Array(diff_str.length);
+var diff_is_play=new Array(diff_str.length);
 
 
 /*initialize*/
@@ -50,6 +53,7 @@ for(var i=0;i<genre_str.length;i++){
     genre_sp_rate[i]=new Array(diff_str.length);
     genre_spp_rate[i]=new Array(diff_str.length);
     genre_perfect_rate[i]=new Array(diff_str.length);
+    genre_is_play[i]=new Array(diff_str.length);
     for(var j=0;j<diff_str.length;j++){
         genre_total_score[i][j]=0;
         genre_num[i][j]=0;
@@ -57,6 +61,7 @@ for(var i=0;i<genre_str.length;i++){
         genre_sp_rate[i][j]=0;
         genre_spp_rate[i][j]=0;
         genre_perfect_rate[i][j]=0;
+        genre_is_play[i][j]=0;
     }
 }
 
@@ -70,6 +75,7 @@ for(var i=0;i<diff_str.length;i++){
     diff_sp_rate[i]=new Array(diff_rank);
     diff_spp_rate[i]=new Array(diff_rank);
     diff_perfect_rate[i]=new Array(diff_rank);
+    diff_is_play[i]=new Array(diff_rank);
     for(var j=0;j<diff_rank;j++){
         diff_total_score[i][j]=0;
         diff_num[i][j]=0;
@@ -77,11 +83,13 @@ for(var i=0;i<diff_str.length;i++){
         diff_sp_rate[i][j]=0;
         diff_spp_rate[i][j]=0;
         diff_perfect_rate[i][j]=0;
+        diff_is_play[i][j]=0;
     }
 }
 
 
 const timeout=10000;
+const s_timeout=100000;
 
 const mypage_host='https://mypage.groovecoaster.jp';
 const github_host='https://kazudon-0407.github.io';
@@ -157,6 +165,7 @@ async function get_score(){
         const detail_path='/sp/json/music_detail.php';
         const detail_para='?music_id=';
         const detail_url=get_url(mypage_host,detail_path,detail_para);
+
         disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title></head><body><h1>'+player_name+'のプレイ済み楽曲のスコア</h1>';
 
         play_id.forEach(function(music_id,index){
@@ -164,6 +173,7 @@ async function get_score(){
             all_data[music_id]=new Array();
             xhr[music_id]=new XMLHttpRequest();
             xhr[music_id].open("GET",detail_url+music_id,true);
+            xhr[music_id].timeout=s_timeout;
             xhr[music_id].onreadystatechange = function(){
                 if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
                     var data=JSON.parse(xhr[music_id].responseText);
@@ -197,13 +207,14 @@ async function get_score(){
                         (path[i]==null) ? rank_data=0 : rank_data=data.music_detail.user_rank[i].rank;
                         all_data[music_id][i+rank_idx]=rank_data;
                     }
+
                     if(index==play_id.length-1){
                         resolve();
                         /*get_csv(all_data);*/
                     }
                 }
                 else if (xhr[music_id].readyState === 4 && xhr[music_id].status === 0){
-                    alert("データ取り込みに失敗しました");
+                    is_display_alert = true;
                 }
             };
             xhr[music_id].send(null);
@@ -250,9 +261,9 @@ async function data_search(){
         var current_genre=-1;
         disp+='<p>';
 
-        disp+='<table style="padding:15px;font-size:16px;">';
-        disp+='<tr align="center"><th rowspan="2">曲名</th><th colspan="4">スコア</th><th colspan="4">プレイ回数</th><th colspan="4">Perfect回数</th><th colspan="4">順位</th></tr>';
-        disp+='<tr align="center"><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th><th>simple</th><th>normal</th><th>hard</th><th>extra</th></tr>';
+        disp += '<table style="font-size:20px;border-collapse: collapse;line-height: 30px;" cellpadding="5">';
+        disp += '<tr align="center"><th rowspan="2" style="border-right: 1px solid black;">曲名</th><th colspan="4" style="border-right: 1px solid black;">スコア</th><th colspan="4" style="border-right: 1px solid black;">プレイ回数</th><th colspan="4" style="border-right: 1px solid black;">Perfect回数</th><th colspan="4">順位</th></tr>';
+        disp += '<tr align="center" style="border-bottom: 3px solid black;"><th>simple</th><th>normal</th><th>hard</th><th style="border-right: 1px solid black;">extra</th><th>simple</th><th>normal</th><th>hard</th><th style="border-right: 1px solid black;">extra</th><th >simple</th><th>normal</th><th>hard</th><th style="border-right: 1px solid black;">extra</th><th>simple</th><th >normal</th><th>hard</th><th>extra</th></tr>';
 
         csv_txt+="曲名,スコア(simple),スコア(normal),スコア(hard),スコア(extra),プレイ回数(simple),プレイ回数(normal),プレイ回数(hard),プレイ回数(extra),Perfect回数(simple),Perfect回数(normal),Perfect回数(hard),Perfect回数(extra),順位(simple),順位(normal),順位(hard),順位(extra)\n";
         
@@ -286,7 +297,14 @@ async function data_search(){
                     
                     /*disp+='<td>'+score_list[j]+'</td>';*/
                     /*csv_txt+=","+score_list[j];*/
+
+                    /*プレイ曲済み楽曲をカウント*/
+                    if(all_data[current_id][play_count_idx+j]>0) {
+                        diff_is_play[j][diff_list[j]-1]++;
+                        genre_is_play[current_genre][j]++;
+                    }
                     
+                    /*母数をカウント*/
                     diff_num[j][diff_list[j]-1]++;
                     genre_num[current_genre][j]++;
                     
@@ -327,9 +345,14 @@ async function data_search(){
                         all_data[current_id][j] = "-";
                     }
                     if(j==0){
-                        disp+='<td align="left">';
+                        disp+='<td align="left" style="border-right: 1px solid black;">';
                         disp+=csv[i][title]+'</td>';
                         csv_txt+=csv[i][title];
+                    }
+                    else if(j==4 || j==8 || j==12){
+                        disp+='<td align="center" style="border-right: 1px solid black;">';
+                        disp+=all_data[current_id][j]+'</td>';
+                        csv_txt+=all_data[current_id][j];
                     }
                     else{
                         disp+='<td align="center">';
@@ -377,12 +400,22 @@ async function score_detail(){
 
         for(var i=0;i<genre_str.length;i++){
             disp+='<h3>['+genre_str[i]+']</h3>';
+            disp+='<table style="padding:15px;font-size:20px;" cellpadding="3">';
+            disp+='<tr align="center"><th>難易度</th><th>プレイ済み楽曲数</th><th>トータルスコア</th><th>平均スコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+            disp += '<tr>';
+            disp += '<td colspan="17" style="border-top: 3px solid black;"></td>';
+            disp += '</tr>';
+
             for(var j=0;j<diff_str.length;j++){
-                disp+='<table style="padding:15px">';
-                disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+                var avg_score=0;
+                if(genre_is_play[i][j]>0){
+                    avg_score=Math.floor(genre_total_score[i][j]/genre_is_play[i][j]);
+                }
                 disp+='<tr align="center">';
                 disp+='<td>'+diff_str[j]+'</td>';
+                disp+='<td>'+genre_is_play[i][j]+"/"+genre_num[i][j]+'</td>';
                 disp+='<td>'+genre_total_score[i][j]+'</td>';
+                disp+='<td>'+avg_score+'</td>';
                 disp+='<td>'+genre_s_rate[i][j]+"/"+genre_num[i][j]+'</td>';
                 disp+='<td>'+genre_sp_rate[i][j]+"/"+genre_num[i][j]+'</td>';
                 disp+='<td>'+genre_spp_rate[i][j]+"/"+genre_num[i][j]+'</td>';
@@ -396,13 +429,23 @@ async function score_detail(){
         
         for(var i=0;i<diff_str.length;i++){
             disp+='<h3>['+diff_str[i]+']</h3>';
-            disp+='<table style="padding:15px">';
-            disp+='<tr align="center"><th>難易度</th><th>トータルスコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+            disp+='<table style="padding:15px;font-size:20px;" cellpadding="3">';
+            disp+='<tr align="center"><th>難易度</th><th>プレイ済み楽曲数</th><th>トータルスコア</th><th>平均スコア</th><th>S率</th><th>S+率</th><th>S++率</th><th>Perfect率</th></tr>';
+            disp += '<tr>';
+            disp += '<td colspan="17" style="border-top: 3px solid black;"></td>';
+            disp += '</tr>';
+
             for(var j=0;j<diff_rank;j++){
                 if(diff_num[i][j]>0){
+                    var avg_score=0;
+                    if(diff_is_play[i][j]>0){
+                        avg_score=Math.floor(diff_total_score[i][j]/diff_is_play[i][j]);
+                    }
                     disp+='<tr align="center">';
                     disp+='<td>'+diff_str[i]+(j+1)+'</td>';
+                    disp+='<td>'+diff_is_play[i][j]+"/"+diff_num[i][j]+'</td>';
                     disp+='<td>'+diff_total_score[i][j]+'</td>';
+                    disp+='<td>'+avg_score+'</td>';
                     disp+='<td>'+diff_s_rate[i][j]+"/"+diff_num[i][j]+'</td>';
                     disp+='<td>'+diff_sp_rate[i][j]+"/"+diff_num[i][j]+'</td>';
                     disp+='<td>'+diff_spp_rate[i][j]+"/"+diff_num[i][j]+'</td>';
@@ -416,8 +459,8 @@ async function score_detail(){
         
         
         disp+='<h2>〇300万、400万数(削除曲を除く)</h2>';
-        disp+='<p>・300万:'+god_count[0]+'曲</p>';
-        disp+='<p>・400万:'+god_count[1]+'曲</p>';
+        disp+='<h3>300万:'+god_count[0]+'曲</h3>';
+        disp+='<h3>400万:'+god_count[1]+'曲</h3>';
         
         /*score_disp();*/
         resolve();
@@ -440,10 +483,16 @@ async function runAll(){
         await get_player_name();
         await get_id();
         await get_score();
-        await get_csv();
-        await data_search();
-        await score_detail();
-        await score_disp();
+
+        if(is_display_alert){
+            alert("データの取得に失敗しました");
+        }
+        else{
+            await get_csv();
+            await data_search();
+            await score_detail();
+            await score_disp();
+        }
     }
     catch(error){
         console.error(error);
