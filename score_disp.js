@@ -106,12 +106,12 @@ function get_player_name(){
 }
 
 function get_id(player_name){
-    const list_path='/sp/json/friend_music_list.php';
+    const list_path='/sp/json/music_list.php';
     const list_para='';
     const list_url=get_url(mypage_host,list_path,list_para);
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    xmlHttp.open("GET",list_url+'?hash=d6041763ff90f69a72f1cbb2f02ca54947181135d409b25196492a226cf06cbf',true);
+    xmlHttp.open("GET",list_url,true);
     xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
@@ -138,7 +138,7 @@ function get_score(id, player_name){
     /*data_arrayの構成：music_idごとに0:title, 1:score_simple, 2:score_normal, 3:score_hard, 4:score_extra*/
     var data_array=[];
     var xhr=[];
-    const detail_path='/sp/json/friend_music_detail.php';
+    const detail_path='/sp/json/music_detail.php';
     const detail_para='?music_id=';
     const detail_url=get_url(mypage_host,detail_path,detail_para);
     disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title></head><body><h1>'+player_name+'のプレイ済み楽曲のスコア</h1>';
@@ -147,7 +147,7 @@ function get_score(id, player_name){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
         xhr[music_id]=new XMLHttpRequest();
-        xhr[music_id].open("GET",detail_url+music_id+'&hash=d6041763ff90f69a72f1cbb2f02ca54947181135d409b25196492a226cf06cbf',true);
+        xhr[music_id].open("GET",detail_url+music_id,true);
         xhr[music_id].onreadystatechange = function(){
             if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
                 var data=JSON.parse(xhr[music_id].responseText);
@@ -402,7 +402,3 @@ function score_disp(){
 
 }
 get_player_name();
-
-
-
-})();
