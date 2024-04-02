@@ -1,4 +1,3 @@
-var page = window.open(); 
 const title=0;
 const csv_id=1;
 const genre=2;
@@ -90,7 +89,6 @@ function get_player_name(){
     const list_path='/sp/json/player_data.php';
     const list_para='';
     const list_url=get_url(mypage_host,list_path,list_para);
-    var player_name;
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
     xmlHttp.open("GET",list_url,true);
@@ -101,19 +99,19 @@ function get_player_name(){
             get_id(data_s.player_data.player_name)
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
-            return "あなた";
+            get_id("あなた")
         }
     };
     xmlHttp.send(null);
 }
 
 function get_id(player_name){
-    const list_path='/sp/json/music_list.php';
+    const list_path='/sp/json/friend_music_list.php';
     const list_para='';
     const list_url=get_url(mypage_host,list_path,list_para);
     var xmlHttp=new XMLHttpRequest();
     /*id set*/
-    xmlHttp.open("GET",list_url,true);
+    xmlHttp.open("GET",list_url+'?hash=d6041763ff90f69a72f1cbb2f02ca54947181135d409b25196492a226cf06cbf',true);
     xmlHttp.timeout=timeout;
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
@@ -126,11 +124,11 @@ function get_id(player_name){
                     return a - b;
                 }
             );
-            page.alert("OK or 閉じるを押すとデータ取り込みを開始します");
+            alert("OK or 閉じるを押すとデータ取り込みを開始します\n※処理に時間がかかる場合があります");
             get_score(play_id, player_name);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
-            page.alert("通信エラー\nマイページにログインして実行してください");
+            alert("通信エラー\nマイページにログインして実行してください");
         }
     };
     xmlHttp.send(null);
@@ -140,7 +138,7 @@ function get_score(id, player_name){
     /*data_arrayの構成：music_idごとに0:title, 1:score_simple, 2:score_normal, 3:score_hard, 4:score_extra*/
     var data_array=[];
     var xhr=[];
-    const detail_path='/sp/json/music_detail.php';
+    const detail_path='/sp/json/friend_music_detail.php';
     const detail_para='?music_id=';
     const detail_url=get_url(mypage_host,detail_path,detail_para);
     disp+='<html><head><meta name="format-detection" content="telephone=no"><title>スコア</title></head><body><h1>'+player_name+'のプレイ済み楽曲のスコア</h1>';
@@ -149,7 +147,7 @@ function get_score(id, player_name){
         /*score dataは添字music_idに格納*/
         data_array[music_id]=new Array();
         xhr[music_id]=new XMLHttpRequest();
-        xhr[music_id].open("GET",detail_url+music_id,true);
+        xhr[music_id].open("GET",detail_url+music_id+'&hash=d6041763ff90f69a72f1cbb2f02ca54947181135d409b25196492a226cf06cbf',true);
         xhr[music_id].onreadystatechange = function(){
             if (xhr[music_id].readyState === 4 && xhr[music_id].status === 200){
                 var data=JSON.parse(xhr[music_id].responseText);
@@ -213,7 +211,7 @@ function get_csv(data){
             data_search(res,data);
         }
         else if (xmlHttp.readyState === 4 && xmlHttp.status === 0){
-            page.alert("CSVデータの取得に失敗しました");
+            alert("CSVデータの取得に失敗しました");
         }
     };
     xmlHttp.send(null);
@@ -400,7 +398,11 @@ function score_disp(){
     disp+='<textarea id="csv_txt" style="display:none">'+csv_txt+'</textarea>'; /*csv保存用テキスト*/
     disp+='<script>function downloadCSV() {var csvContent = document.getElementById("csv_txt").value;var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });var link = document.createElement("a");if (link.download !== undefined) {var url = URL.createObjectURL(blob);link.setAttribute("href", url);link.setAttribute("download", "gc_score.csv");link.style.visibility = "hidden";document.body.appendChild(link);link.click();document.body.removeChild(link);}}</script>';
     disp+='</body></html>';
-    page.document.write(disp);
+    document.write(disp);
 
 }
 get_player_name();
+
+
+
+})();
