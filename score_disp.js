@@ -18,7 +18,9 @@ var player_name;
 var play_id;
 var all_data=[];
 var csv=[];
+
 var is_display_alert = false;
+var is_NaN = false;
 
 var csv_txt="";
 
@@ -146,7 +148,7 @@ async function get_id(){
                         return a - b;
                     }
                 );
-                alert("OK or 閉じるを押すとデータ取り込みを開始します\n※処理に時間がかかる場合があります");
+                alert("グルコススコア保存ツールver.1.0\nOK or 閉じるを押すとデータ取り込みを開始します\n※処理に時間がかかる場合があります");
                 resolve();
                 /* get_score(play_id, player_name); */
             }
@@ -192,7 +194,7 @@ async function get_score(){
                     /*難易度毎に各種データを取得*/
                     for(var i=0;i<diff_lng;i++){
                         /*スコアデータ*/
-                        (path[i]==null) ? score_data=0 : score_data=path[i].score;
+                        (path[i]==null || path[i].score==null) ? score_data=0 : score_data=path[i].score;
                         all_data[music_id][i+score_idx]=score_data;
 
                         /*プレイ回数*/
@@ -204,7 +206,7 @@ async function get_score(){
                         all_data[music_id][i+perfect_count_idx]=perfect_count_data;
 
                         /*順位*/
-                        (path[i]==null) ? rank_data=0 : rank_data=data.music_detail.user_rank[i].rank;
+                        (data.music_detail.user_rank[i]==null) ? rank_data=0 : rank_data=data.music_detail.user_rank[i].rank;
                         all_data[music_id][i+rank_idx]=rank_data;
                     }
 
@@ -411,6 +413,9 @@ async function score_detail(){
                 if(genre_is_play[i][j]>0){
                     avg_score=Math.floor(genre_total_score[i][j]/genre_is_play[i][j]);
                 }
+                if(Number.isNaN(genre_total_score[i][j])){
+                    is_NaN=true;
+                }
                 disp+='<tr align="center">';
                 disp+='<td>'+diff_str[j]+'</td>';
                 disp+='<td>'+genre_is_play[i][j]+"/"+genre_num[i][j]+'</td>';
@@ -441,6 +446,9 @@ async function score_detail(){
                     if(diff_is_play[i][j]>0){
                         avg_score=Math.floor(diff_total_score[i][j]/diff_is_play[i][j]);
                     }
+                    if(Number.isNaN(diff_total_score[i][j])){
+                        is_NaN=true;
+                    }
                     disp+='<tr align="center">';
                     disp+='<td>'+diff_str[i]+(j+1)+'</td>';
                     disp+='<td>'+diff_is_play[i][j]+"/"+diff_num[i][j]+'</td>';
@@ -461,6 +469,10 @@ async function score_detail(){
         disp+='<h2>〇300万、400万数(削除曲を除く)</h2>';
         disp+='<h3>300万:'+god_count[0]+'曲</h3>';
         disp+='<h3>400万:'+god_count[1]+'曲</h3>';
+
+        if(is_NaN){
+            alert("一部データの取り込みに失敗しました\nページをリロードして再度実行してください");
+        }
         
         /*score_disp();*/
         resolve();
