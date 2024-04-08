@@ -518,7 +518,6 @@ async function runOmikuji(){
         await get_csv();
         const randomIndex = Math.floor(Math.random() * csv.length);
         const randomMusic = csv[randomIndex][0];
-        console.log(randomMusic);
         alert("このブックマークレットは現在使用できません\n代わりに本日のオススメ楽曲を表示します\n\n" + randomMusic);
     }
     catch(error){
